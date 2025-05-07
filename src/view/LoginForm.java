@@ -5,6 +5,9 @@
 package view;
 
 import model.classConnection;
+import java.sql.*;
+import javax.swing.JOptionPane;
+import lib.Session;
 
 /**
  *
@@ -16,7 +19,12 @@ public class LoginForm extends javax.swing.JFrame {
      * Creates new form Login
      */
     
-    classConnection c = new classConnection();
+    classConnection C = new classConnection();
+    Connection con = C.connection;
+    
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
     public LoginForm() {
         initComponents();
     }
@@ -66,6 +74,11 @@ public class LoginForm extends javax.swing.JFrame {
         });
 
         btnLogin.setBackground(new java.awt.Color(0, 0, 255));
+        btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLoginMouseClicked(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("LOGIN");
@@ -158,6 +171,29 @@ public class LoginForm extends javax.swing.JFrame {
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        // TODO add your handling code here:
+        String query = "SELECT * FROM USER WHERE username=? AND password=?";
+        
+        try {
+            ps = (PreparedStatement)con.prepareStatement(query);
+            ps.setString(1, tfUsername.getText());
+            ps.setString(2, pfPassword.getText());
+            rs = ps.executeQuery();
+            
+            if(rs.next()) {
+                Session.level = rs.getString("level");
+                Session.kd = rs.getString("id_user");
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Username atau Password salah!", "Pesan", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e){
+            
+        }
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
