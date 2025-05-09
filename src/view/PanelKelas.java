@@ -39,6 +39,8 @@ public class PanelKelas extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jTextField3 = new javax.swing.JTextField();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

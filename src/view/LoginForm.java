@@ -104,6 +104,11 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 0));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cek Saldo");
@@ -217,9 +222,18 @@ public class LoginForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Username atau Password salah!", "Pesan", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e){
-            
+            e.printStackTrace(); // tampilkan error ke console
+            JOptionPane.showMessageDialog(null, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+        CekSaldo cs = new CekSaldo();
+        
+        cs.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments
